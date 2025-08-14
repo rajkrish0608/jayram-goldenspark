@@ -2,41 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Jayram Jewellers Premium Design System
+   Rich Gold, Deep Black, Pure White with elegant typography
+   All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Brand Colors */
+    --gold-primary: 40 50% 51%;        /* Rich Gold #C7A14A */
+    --gold-light: 40 60% 58%;          /* Lighter Gold */
+    --gold-dark: 40 45% 45%;           /* Darker Gold */
+    --black-deep: 0 0% 7%;             /* Deep Black #121212 */
+    --black-light: 0 0% 15%;           /* Lighter Black */
+    --white-pure: 0 0% 100%;           /* Pure White */
+    --white-warm: 40 10% 98%;          /* Warm White */
+    
+    /* Semantic Tokens */
+    --background: var(--white-pure);
+    --foreground: var(--black-deep);
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: var(--white-pure);
+    --card-foreground: var(--black-deep);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: var(--white-pure);
+    --popover-foreground: var(--black-deep);
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--gold-primary);
+    --primary-foreground: var(--white-pure);
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: var(--black-deep);
+    --secondary-foreground: var(--white-pure);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 40 5% 95%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: var(--gold-light);
+    --accent-foreground: var(--white-pure);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: var(--white-pure);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 40 10% 90%;
+    --input: 40 10% 95%;
+    --ring: var(--gold-primary);
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+    
+    /* Premium Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(var(--gold-primary)), hsl(var(--gold-light)));
+    --gradient-elegant: linear-gradient(180deg, hsl(var(--white-pure)), hsl(var(--white-warm)));
+    --gradient-overlay: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+    
+    /* Shadows */
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--black-deep) / 0.2);
+    --shadow-gold: 0 8px 32px hsl(var(--gold-primary) / 0.3);
+    --shadow-premium: 0 20px 60px -20px hsl(var(--black-deep) / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +125,73 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-lato;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  /* Hero Button Variants */
+  .btn-hero-primary {
+    @apply bg-primary text-primary-foreground hover:bg-accent transition-all duration-300 
+           px-8 py-4 rounded-full font-lato font-medium tracking-wide
+           shadow-[0_8px_32px_hsl(var(--gold-primary)/0.3)] 
+           hover:shadow-[0_12px_40px_hsl(var(--gold-primary)/0.4)]
+           hover:scale-105 transform;
+  }
+  
+  .btn-hero-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-black-light transition-all duration-300
+           px-8 py-4 rounded-full font-lato font-medium tracking-wide border border-secondary
+           shadow-[0_8px_32px_hsl(var(--black-deep)/0.2)]
+           hover:shadow-[0_12px_40px_hsl(var(--black-deep)/0.3)]
+           hover:scale-105 transform;
+  }
+
+  /* Premium Card Hover */
+  .jewelry-card {
+    @apply bg-card rounded-2xl overflow-hidden transition-all duration-500
+           shadow-[0_10px_30px_-10px_hsl(var(--black-deep)/0.1)]
+           hover:shadow-[0_20px_60px_-20px_hsl(var(--black-deep)/0.2)]
+           hover:scale-105 transform cursor-pointer;
+  }
+  
+  .jewelry-card img {
+    @apply transition-transform duration-700 hover:scale-110;
+  }
+
+  /* Gold Rate Ticker */
+  .gold-ticker {
+    @apply bg-gradient-to-r from-primary via-accent to-primary text-primary-foreground
+           py-3 px-6 font-lato font-medium tracking-wide;
+  }
+  
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom Animations */
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+  .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+  .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+  .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
